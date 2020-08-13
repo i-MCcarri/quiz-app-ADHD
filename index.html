@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+<meta charset="UTF-8">
+<title>Pop Quiz</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header role='banner'>
+  <h1>Pop Quiz</h1>
+  </header>
+<main role='main'>
+  <div class='counters'>
+    <p>Question: <span class='js-question-counter'>0</span> / 10</p>
+    <p>Score: <span class="js-score-counter">0</span></p>
+  </div>
+  <div class="quizdiv">
+    <div class="quizform js-intro">
+      <h2>Are You Ready?</h2>
+      <p>This Quiz will test your knowledge on A.D.H.D.</p>
+      <div class="controls">
+        <button class="button js-intro-submit">Start Quiz</button>
+      </div>
+    </div>
+    <div class="quizform js-question"></div>
+    <div class="quizform js-feedback"></div>
+    <div class="quizform js-evaluation"></div>
+  </div>
+</main>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src="store.js"></script>
+    <script  src="index.js"></script>
+</body>
+</html>

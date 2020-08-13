@@ -1,0 +1,116 @@
+/* CSS quiz-app */
+
+/* views: ['splash','multiple-choice','boolean', 'multi-answer', 'ref'`] */
+
+body {
+    margin: 0;
+    background-color: #1f2147;
+  }
+  
+  h1, h2, h3 {
+    font-family: 'Lato', sans-serif;
+  }
+  
+  
+  header {
+    align-items: center;
+    background: #eee;
+    display: flex;
+    height: 70px;
+    justify-content: center;
+  }
+  
+  .counters {
+    background: #5fbcda;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  span, p {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+  }
+  
+  .quizdiv {
+    align-items: center;
+    display: flex;
+    height: 20em;
+    justify-content: center;
+    margin: 1.5em 0;
+  }
+  
+  .quizform {
+    background: white;
+    border-radius: 2px;
+    border: 1px solid #e3e3e3;
+    margin-top: 5em;
+    padding: 1em 2em;
+    width: 35%;
+  }
+  
+  fieldset {
+    border-width: 1px;
+    border-style: none;
+  }
+  
+  input[type=radio]{
+    background: blue;
+  }
+  
+  label {
+    font-family: 'Roboto Slab', serif;  
+    font-size: 20px;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .button {
+    background: #5fbcda;
+    border-radius: 4px;
+    border-width: 0;
+    color: white;
+    font-size: 16px;
+    margin-top: 1.5em;
+    outline: none;
+    padding: 1em;
+    width: 15em;
+  }
+  
+  @media (max-width: 399px) {
+    .quizform {
+      width: 100%;
+    }
+  }
+
+  
+  
+  @media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) {
+    header {
+      height: 50px;
+    }
+  
+    h1 {
+      font-size: 18px;
+    }
+  
+    h3 {
+      opacity: .7;
+    }
+  
+    img {
+      margin-top: .3em;
+      height: 25px;
+      width: auto;
+    }
+    .counters {
+      margin-bottom: 3em;
+    }
+  
+    .quizform {
+      width: 65%;
+    }
+  }
+  
