@@ -16,14 +16,119 @@
 //Render answer choices in a <form>
 //use semantic HTML along with CSS and jQuery
 //be accessible as possible
-//        associate `label` tags with inputs
+//associate `label` tags with inputs
 //use responsive design
 //be fully useable by keyboard tab through
+
+// Create initial store
+
+console.clear();
+const DB = [
+	{
+		question: 'What is the closest star to our own sun?',
+		answers: [
+			'Proxima Centauri',
+			'Our sun',
+			'Betelgeuse',
+			'Sirius '],
+		correctAnswer: 'Proxima Centauri'
+	},
+	{
+		question: 'Which U.S. President made the first telephone call to the moon?',
+		answers: [
+			'Henry Truman',
+			'Richard Nixon',
+			'Franklin D. Roosevelt',
+			'Jimmy Carter'
+			],
+		correctAnswer: 'Richard Nixon'
+	},
+	{
+		question: 'Betelgeuse and Rigel are the two giant stars in which constellation?',
+		answers: [
+			'Andromeda',
+			'Aries',
+			'Virgo',
+			'Orion'
+			],
+		correctAnswer: 'Orion'
+	},
+	{
+		question: 'In our solar system, which planet has the shortest day?',
+		answers: [
+			'Earth',
+			'Venus',
+			'Jupiter',
+			'Mercury'
+			],
+		correctAnswer: 'Jupiter'
+	},
+	{
+		question: 'Hale-Bopp is classified as which type of small Solar System body?',
+		answers: [
+			'Comet',
+			'Asteroid',
+			'Meteoroid',
+			'Meteor'
+			],
+		correctAnswer: 'Comet'
+	},
+	{
+		question: 'What is the name for the disc-shaped region of icy bodies that extends from Neptune to about 55 astronomical units from the Sun?',
+		answers: [
+			'Orion\'s Belt',
+			'Copernicus\' Belt',
+			'Caeser\'s Belt',
+			'Kuiper Belt'
+			],
+		correctAnswer: 'Kuiper Belt'
+	},
+	{
+		question: 'In our solar system which two planets are known as ice giants?',
+		answers: [
+			'Venus & Mars',
+			'Neptune & Pluto',
+			'Uranus & Neptune',
+			'Jupiter & Uranus'
+			],
+		correctAnswer: 'Uranus & Neptune'
+	},
+	{
+		question: '"Mare Tranquillitatis" is the Latin name for what feature found on Earth\'s moon?',
+		answers: [
+			'Sea of Tranquility',
+			'Chilled Mahi',
+			'Tranquil Mars',
+			'Calm horse'
+			],
+		correctAnswer: 'Sea of Tranquility'
+	},
+	{
+		question: 'Who were there first two astronauts that landed on the moon in 1969?',
+		answers: [
+			'Buzz Lightyear & Lance "Woody" Armstrong',
+			'Neil Armstrong & Buzz Aldrin',
+			'Tom Aldrin & Neil Diamond',
+			'Buzz Adderrall & Neil Aldrin'
+			],
+		correctAnswer: 'Neil Armstrong & Buzz Aldrin'
+	},
+	{
+		question: 'The Great Red Spot is a gigantic storm located on which planet in our solar system?',
+		answers: [
+			'Earth',
+			'Mars',
+			'Jupiter',
+			'Venus'
+			],
+		correctAnswer: 'Jupiter'
+	}
+]
 let count = 0;
 let spanCount = 0;
 let score = 0;
 
-//render quiz
+// set up initial Intro
 function renderIntro() {
   $(".js-intro").show();
   $(".js-question").hide();
@@ -31,7 +136,7 @@ function renderIntro() {
   $(".js-evaluation").hide();
 }
 
-//start quiz button
+// bind start quiz button
 function renderQuestion() {
   $(".js-intro-submit").on("click", event => {
     event.preventDefault();
@@ -45,53 +150,29 @@ function increaseSpanCount() {
   $(".js-question-counter").text(spanCount);
 }
 
-// create renderQuestion function
+// create a reusable renderQuestion function
 function renderQuestionForm() {
   increaseSpanCount();
   showOnlyQuestionDiv();
   $(".js-question").html(`
     <form id='form'>
     <fieldset>
-    <legend><h2>${popQuiz[count].question}</h2></legend>
+    <legend><h2>${DB[count].question}</h2></legend>
     <div class='css-answers'>
-		<input id='answer1' type="radio" name='answer' value='${popQuiz[count].answers[0]}' required>
-		<label for='answer1'>${popQuiz[count].answers[0]}</label>
+		<input id='answer1' type="radio" name='answer' value='${DB[count].answers[0]}' required>
+		<label for='answer1'>${DB[count].answers[0]}</label>
     </div>
     <div class='css-answers'>
-    <input id='answer2' type="radio" name='answer' value='${popQuiz[count].answers[1]}' required>
-		<label for='answer2'>${popQuiz[count].answers[1]}</label>
+    <input id='answer2' type="radio" name='answer' value='${DB[count].answers[1]}' required>
+		<label for='answer2'>${DB[count].answers[1]}</label>
     </div>
     <div class='css-answers'>
-    <input id='answer3' type="radio" name='answer' value='${popQuiz[count].answers[2]}' required>
-		<label for='answer3'>${popQuiz[count].answers[2]}</label>
+    <input id='answer3' type="radio" name='answer' value='${DB[count].answers[2]}' required>
+		<label for='answer3'>${DB[count].answers[2]}</label>
     </div>
     <div class='css-answers'>
-    <input id='answer4' type="radio" name='answer' value='${popQuiz[count].answers[3]}' required>
-		<label for='answer4'>${popQuiz[count].answers[3]}</label>
-    </div>
-    <div class='css-answers'>
-    <input id='answer4' type="radio" name='answer' value='${popQuiz[count].answers[3]}' required>
-		<label for='answer4'>${popQuiz[count].answers[4]}</label>
-    </div>
-    <div class='css-answers'>
-    <input id='answer4' type="radio" name='answer' value='${popQuiz[count].answers[3]}' required>
-		<label for='answer4'>${popQuiz[count].answers[5]}</label>
-    </div>
-    <div class='css-answers'>
-    <input id='answer4' type="radio" name='answer' value='${popQuiz[count].answers[3]}' required>
-		<label for='answer4'>${popQuiz[count].answers[6]}</label>
-    </div>
-    <div class='css-answers'>
-    <input id='answer4' type="radio" name='answer' value='${popQuiz[count].answers[3]}' required>
-		<label for='answer4'>${popQuiz[count].answers[7]}</label>
-    </div>
-    <div class='css-answers'>
-    <input id='answer4' type="radio" name='answer' value='${popQuiz[count].answers[3]}' required>
-		<label for='answer4'>${popQuiz[count].answers[8]}</label>
-    </div>
-    <div class='css-answers'>
-    <input id='answer4' type="radio" name='answer' value='${popQuiz[count].answers[3]}' required>
-		<label for='answer4'>${popQuiz[count].answers[9]}</label>
+    <input id='answer4' type="radio" name='answer' value='${DB[count].answers[3]}' required>
+		<label for='answer4'>${DB[count].answers[3]}</label>
     </div>
     </fieldset>
     <div class="controls">
@@ -128,7 +209,7 @@ function fetchRadioValue(event) {
 
 // radio value is equal to correct answer in database
 function checkAnswer(answer) {
-  return answer === `${popQuiz[count].correctAnswer}`;
+  return answer === `${DB[count].correctAnswer}`;
 }
 
 // if statement returns rendered correct or incorrect answer text

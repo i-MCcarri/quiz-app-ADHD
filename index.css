@@ -79,38 +79,8 @@ body {
     width: 15em;
   }
   
-  @media (max-width: 399px) {
+  @media all (max-width: 399px) {
     .quizform {
       width: 100%;
     }
   }
-
-  
-  
-  @media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (orientation : portrait) {
-    header {
-      height: 50px;
-    }
-  
-    h1 {
-      font-size: 18px;
-    }
-  
-    h3 {
-      opacity: .7;
-    }
-  
-    img {
-      margin-top: .3em;
-      height: 25px;
-      width: auto;
-    }
-    .counters {
-      margin-bottom: 3em;
-    }
-  
-    .quizform {
-      width: 65%;
-    }
-  }
-  
