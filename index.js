@@ -1,5 +1,6 @@
 // jQuery quiz-app
-import { popQuiz } from "store.js";
+const popQuiz = require("./store.js");
+console.log(popQuiz);
 
 //global variables
 const score = 0;
@@ -8,7 +9,7 @@ const qNum = 0;
 const name = '';
 
 function generateQView(){
-  let question = store.popQuiz[store.currentQuestion];
+  let question = popQuiz[currentQuestion];
 if (store.popQuiz.view === 'multiple-choice') {
   return `<div class="slides">
   <div class="question">${popQuiz.question}</div><br><br>
@@ -56,6 +57,7 @@ return `<div class="slides">
 } else {
   //conclusion page
   quizConclusion();
+}
 }
 
 function generateStartPage() {
@@ -154,4 +156,4 @@ $('main').on('click','.start-quiz-button', function() {
 
 $('main').on('submit', '.form', submitAnswer);
 
-main();
+$(function() { main() });
