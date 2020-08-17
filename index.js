@@ -1,6 +1,134 @@
 // jQuery quiz-app
+import { popQuiz } from "store.js";
+
+//global variables
+const score = 0;
+const wrongScore = 0;
+const qNum = 0;
+const name = '';
+
+function generateQView(){
+  let question = store.popQuiz[store.currentQuestion];
+if (store.popQuiz.view === 'multiple-choice') {
+  return `<div class="slides">
+  <div class="question">${popQuiz.question}</div><br><br>
+  <form class="question-form">
+  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[0]}">
+  <label for="popQuiz.answers[0]">${popQuiz.answers[0]}</label><br>
+  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[1]}">
+  <label for="popQuiz.answers[1]">${popQuiz.answers[1]}</label><br>
+  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[2]}">
+  <label for="popQuiz.answers[2]">${popQuiz.answers[2]}</label><br>
+  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[3]}">
+  <label for="popQuiz.answers[3]">${popQuiz.answers[3]}</label><br><br>
+  <button type="submit" id="verify-answer">Verifiy</button>
+  <button type="submit" id="next-q">Next Question</button>
+</form>
+</div>`;
+} else if (store.popQuiz.view === 'multiple-answer'){
+return `<div class="slides">
+<div class="question">${popQuiz.question}</div><br><br>
+<form class="question-form">
+<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[0]}">
+<label for="popQuiz.answers[0]">${popQuiz.answers[0]}</label><br>
+<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[1]}">
+<label for="popQuiz.answers[1]">${popQuiz.answers[1]}</label><br>
+<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[2]}">
+<label for="popQuiz.answers[2]">${popQuiz.answers[2]}</label><br>
+<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[3]}">
+<label for="popQuiz.answers[3]">${popQuiz.answers[3]}</label><br><br>
+<button type="submit" id="verify-answer">Verifiy</button>
+<button type="submit" id="next-q">Next Question</button>
+</form>
+</div>`;
+} else if (store.popQuiz.view === 'boolean'){
+return `<div class="slides">
+<div class="question">${popQuiz.question}</div><br><br>
+<form class="question-form">
+<input type="radio" id="boolean-true" names="answers" value="${popQuiz.answers[0]}">
+<label for="popQuiz.answers[0]">${popQuiz.answers[0]}</label><br>
+<input type="radio" id="boolean-false" names="answers" value="${popQuiz.answers[1]}">
+<label for="popQuiz.answers[1]">${popQuiz.answers[1]}</label><br><br>
+<button type="submit" id="verify-answer">Verifiy</button>
+<button type="submit" id="next-q">Next Question</button>
+</form>
+</div>`;
+} else {
+  //conclusion page
+  quizConclusion();
+}
+
+function generateStartPage() {
+  return `<div class="startPage">
+  <h2>Who is ready to begin?</h2>
+  <p>Our subject is A.D.H.D.</p>
+  <form id="js-quiz-app-form-name">
+      <label for="name">Name:</label>
+      <input type="text" name="quizTakerName" class="inputBox" placeholder="First Name" required /><br><br>
+  </form>
+  <form id="js-quiz-app-form-id">
+      <label for="name">I.D.: </label>
+      <input type="text" name="idNum" class="inputBox" placeholder="Student ID"><br><br>
+  </form>
+  <form class="js-quiz-app-form-bottons" id="js-quiz-app-form-bottons">
+      <button class="exit-button" type="button">Exit</button>
+      <button class="start-quiz-button" type="submit">Start Quiz</button>
+  </form>
+  <form class="js-quiz-app-form-checkbox" id="js-quiz-app-form-checkbox">
+      <input type="checkbox" name="terms" required />
+      <label for="terms">sign your life away. . . again.</label>
+  </form>
+</div>`;
+}
+
+function quizConclusion(){
+  return `<div class="quiz-conclusion">
+  <h2> Quiz Completed</h2>
+  <p>Congratulations ${name}!</p>
+  <p>Your final score was ${score} out of 100!</p>
+  <p>You answered ${wrongScore} questions wrong.</p>
+  <form class="js-quiz-app-form-bottons" id="js-quiz-app-form-bottons">
+      <button class="exit-button" type="button">Exit</button>
+      <button class="start-quiz-button" type="submit">Restart Quiz</button>
+  </form>
+</div>`;
+}
+
+function renderList(){
+  let html = generateQView();
+  console.log(html);
+  $('main').html(html);
+}
+
+function main() {
+  let startPage = generateStartPage();
+  $('main').html(startpage);
+}
+
+function SubmitAnswer(event) {
+  event.preventDefault();
+  let answer = $('input[name=answers]:checked').val();
+  if(store.popQuiz[store.currentQuestions].correctAnswer == answer){
+    alert(`You are correct!`);
+  } else {
+    alert(`oOf! The correct answer is: ${store.popQuiz[currentQuestion].correctAnswer}.`)
+  }
+  store.currentQuestion++;
+  renderList();
+}
+
+function completeItem(){
+  console.log($(this).parent());
+  alert('complete');
+  renderList();
+}
+
 //Requirements:
 //Button to start quiz
+  //when startQuiz button is clicked
+  //verify name was typed
+  //has check box been checked
+  //main()
 //user cannot skip questions without answering
 //answer 5+ questions of multiple choice
 //display current question number and ratio to total questions
@@ -20,116 +148,10 @@
 //use responsive design
 //be fully useable by keyboard tab through
 
-// Create initial store
+$('main').on('click','.start-quiz-button', function() {
+  renderList();
+});
 
-'use strict';
+$('main').on('submit', '.form', submitAnswer);
 
-function generateItemElement(item) {
-  return `
-    <li data-item-id="${item.id}">
-      <span class="shopping-item js-shopping-item ${item.checked ? "shopping-item__checked" : ''}">${item.name}</span>
-      <div class="shopping-item-controls">
-        <button class="shopping-item-toggle js-item-toggle">
-            <span class="button-label">check</span>
-        </button>
-        <button class="shopping-item-delete js-item-delete">
-            <span class="button-label">delete</span>
-        </button>
-      </div>
-    </li>`;
-}
-
-
-function generateShoppingItemsString(shoppingList) {
-  console.log("Generating shopping list element");
-
-  const items = shoppingList.map((item) => generateItemElement(item));
-  
-  return items.join("");
-}
-
-
-function renderShoppingList() {
-  // render the shopping list in the DOM
-  console.log('`renderShoppingList` ran');
-  const shoppingListItemsString = generateShoppingItemsString(STORE);
-
-  // insert that HTML into the DOM
-  $('.js-shopping-list').html(shoppingListItemsString);
-}
-
-
-function addItemToShoppingList(itemName) {
-  console.log(`Adding "${itemName}" to shopping list`);
-  STORE.push({id: cuid(), name: itemName, checked: false});
-}
-
-function handleNewItemSubmit() {
-  $('#js-shopping-list-form').submit(function(event) {
-    event.preventDefault();
-    console.log('`handleNewItemSubmit` ran');
-    const newItemName = $('.js-shopping-list-entry').val();
-    $('.js-shopping-list-entry').val('');
-    addItemToShoppingList(newItemName);
-    renderShoppingList();
-  });
-}
-
-function toggleCheckedForListItem(itemId) {
-  console.log("Toggling checked property for item with id " + itemId);
-  const item = STORE.find(item => item.id === itemId);
-  item.checked = !item.checked;
-}
-
-
-function getItemIdFromElement(item) {
-  return $(item)
-    .closest('li')
-    .data('item-id');
-}
-
-function handleItemCheckClicked() {
-  $('.js-shopping-list').on('click', `.js-item-toggle`, event => {
-    console.log('`handleItemCheckClicked` ran');
-    const id = getItemIdFromElement(event.currentTarget);
-    toggleCheckedForListItem(id);
-    renderShoppingList();
-  });
-}
-
-// delete item function 
-function deleteListItem(itemId) {
-  console.log (`Deleting list item with id ${itemId} from STORE`);
-  const objItem = STORE.findIndex(item => item.id === itemId);
-  STORE.splice(objItem, objItem+1);
-}
-
-function handleDeleteItemClicked() {
-  // this function will be responsible for when users want to delete a shopping list
-  // item
-  // Listen for when a user clicks the 'delete' button on an item.
-  $('.js-shopping-list').on('click', '.js-item-delete', event => {
-  //Retrieve the item's id from the data attribute.
-  const itemId = getItemIdFromElement(event.currentTarget);
-  //Delete the item from STORE.
-  deleteListItem(itemId);
-  //Re-render the shopping list.
-  renderShoppingList();
-  console.log('`handleDeleteItemClicked` ran');
-  });
-}
-
-
-// this function will be our callback when the page loads. it's responsible for
-// initially rendering the shopping list, and activating our individual functions
-// that handle new item submission and user clicks on the "check" and "delete" buttons
-// for individual shopping list items.
-function handleShoppingList() {
-  renderShoppingList();
-  handleNewItemSubmit();
-  handleItemCheckClicked();
-  handleDeleteItemClicked();
-}
-
-// when the page loads, call `handleShoppingList`
-$(handleShoppingList);
+main();

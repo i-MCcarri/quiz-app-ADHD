@@ -1,4 +1,3 @@
-// Create initial store
 const popQuiz = [
     {
         question: 'What does the acronym A.D.H.D. stand for?',
@@ -38,7 +37,7 @@ const popQuiz = [
     },
     {
         question: 'A.D.D. is now called "inattentive" A.D.H.D.',
-        answers: ['True', 'False',],
+        answers: ['true', 'false',],
         correctAnswer: 'true',
         //view: 'boolean',
     },
@@ -59,6 +58,8 @@ const popQuiz = [
         answers: ['true', 'false',],
         correctAnswer: 'false',
         //view: 'boolean',
-    }
+    },
 
-]
+];
+
+export { popQuiz };

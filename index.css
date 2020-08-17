@@ -1,86 +1,46 @@
-/* CSS quiz-app */
+header {
+  font-family: cursive;
+  height: fit-content;
+}
 
-/* views: ['splash','multiple-choice','boolean', 'multi-answer', 'ref'`] */
-
+header, footer{
+  text-align: center;
+  background-color: blanchedalmond;
+  border: black;
+  border-style: solid;
+}
 body {
-    margin: 0;
-    background-color: #1f2147;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+  }
+form {
+  
+}  
+.js-quiz-app-form-bottons, .js-quiz-app-form-checkbox, .slides {
+  text-align: center;
+}
+
+}
+  button, input[type="text"] {
+    padding: 5px;
+    text-align: center;
   }
   
-  h1, h2, h3 {
-    font-family: 'Lato', sans-serif;
+  button:hover {
+    cursor: pointer;
   }
   
-  
-  header {
-    align-items: center;
-    background: #eee;
-    display: flex;
-    height: 70px;
-    justify-content: center;
+  .hidden {
+    display: none;
   }
   
-  .counters {
-    background: #5fbcda;
-    display: flex;
-    justify-content: space-evenly;
+  .wrapper {
+    max-width: 90%;
+    margin: 0 auto;
   }
-  
-  span, p {
-    font-family: 'Lato', sans-serif;
-    font-size: 18px;
+
+  * {
+    box-sizing: border-box;
   }
-  
-  .quizdiv {
-    align-items: center;
-    display: flex;
-    height: 20em;
-    justify-content: center;
-    margin: 1.5em 0;
-  }
-  
-  .quizform {
-    background: white;
-    border-radius: 2px;
-    border: 1px solid #e3e3e3;
-    margin-top: 5em;
-    padding: 1em 2em;
-    width: 35%;
-  }
-  
-  fieldset {
-    border-width: 1px;
-    border-style: none;
-  }
-  
-  input[type=radio]{
-    background: blue;
-  }
-  
-  label {
-    font-family: 'Roboto Slab', serif;  
-    font-size: 20px;
-  }
-  
-  .controls {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .button {
-    background: #5fbcda;
-    border-radius: 4px;
-    border-width: 0;
-    color: white;
-    font-size: 16px;
-    margin-top: 1.5em;
-    outline: none;
-    padding: 1em;
-    width: 15em;
-  }
-  
-  @media all (max-width: 399px) {
-    .quizform {
-      width: 100%;
-    }
-  }
+
+  /* views: ['splash','multiple-choice','boolean', 'multiple-answer', 'ref'`] */
