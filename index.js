@@ -1,4 +1,5 @@
 import $ from jQuery;
+import store from './store.js';
 
 // jQuery quiz-app
 const store.popQuiz = require("./store.js");
@@ -81,11 +82,15 @@ $('.slides')on('click', generateQView(popQuiz) {
   store.popQuiz.map(i)
 } )
  
+jQuery.map(popQuiz, generateQView() {
+  
+});
+
 function generateQView(){
   let question = store.popQuiz[currentQuestion];
 if (store.store.popQuiz.view === 'multiple-choice') {
   return `<div class='slides'>
-  <form id='quiz-app'>
+  <form id='quizApp'>
       <fieldset>
           <legend class="question">{questions}</legend>
           <div>
@@ -126,14 +131,20 @@ if (store.store.popQuiz.view === 'multiple-choice') {
                   {store.popQuiz.answer[3]} 
               </label><br>
           </div>
-          <div class='verifyMessage' id=''></div>
+          <div class='buttons'>
+              <div class='verifyMessage' id='verifyMessage'>
+                  <button type='button' class=''>Check Answer</button>
+                  <button type="submit">Next Question</button>
+              </div>
+          </div>
       </fieldset>
   </form>
 </div>`
 
 } else if (store.popQuiz.view === 'multiple-answer'){
-return `<div class='slides'>
-<form id='quiz-app'>
+
+  return `<div class='slides'>
+<form id='quizApp'>
     <fieldset>
         <legend class="question">{questions}</legend>
         <div>
@@ -178,16 +189,30 @@ return `<div class='slides'>
 </form>` 
 } else if (store.store.popQuiz.view === 'boolean'){
 return `<div class="slides">
-<div class="question">${store.popQuiz.question}</div><br><br>
-<form class="question-form">
-<input type="radio" id="boolean-true" names="store.popQuiz.answer" value="${store.popQuiz.store.popQuiz.answer[0]}">
-<label for="store.popQuiz.store.popQuiz.answer[0]">${store.popQuiz.store.popQuiz.answer[0]}</label><br>
-<input type="radio" id="boolean-false" names="store.popQuiz.answer" value="${store.popQuiz.store.popQuiz.answer[1]}">
-<label for="store.popQuiz.store.popQuiz.answer[1]">${store.popQuiz.store.popQuiz.answer[1]}</label><br><br>
-<button type="submit" id="verify-answer">Verifiy</button>
-<button type="submit" id="next-q">Next Question</button>
-</form>
-</div>`;
+<form id='quizApp'>
+<fieldset>
+    <legend class="question">{questions}</legend>
+    <div>
+        <input 
+            type='radio'
+            name='multipoleChoice'
+            id={answers}
+            class='answer__option'
+            check ={selection} === popQuiz[i]correctAnswer} />
+        <label htmlFor={answers} class='answer__label'>
+                {answers[0]} 
+        </label><br>
+        <input 
+            type='radio'
+            name='multipoleChoice'
+            id={answers}
+            class='answer__option'
+            check ={selection} === popQuiz[i]correctAnswer} />
+        <label htmlFor={answers} class='answer__label'>
+            {answers[1]} 
+        </label><br>
+    </form>
+  </div>`;
 } else {
   //conclusion page
   quizConclusion() {
