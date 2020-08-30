@@ -1,62 +1,99 @@
+import $ from jQuery;
+
+
 // jQuery quiz-app
-const popQuiz = require("./store.js");
-console.log(popQuiz);
+const store.popQuiz = require("./store.js");
+
 
 //global variables
 const score = 0;
 const wrongScore = 0;
 const qNum = 0;
 const name = '';
-
+ 
 function generateQView(){
-  let question = popQuiz[currentQuestion];
-if (store.popQuiz.view === 'multiple-choice') {
-  return `<div class="slides">
-  <div class="question">${popQuiz.question}</div><br><br>
-  <form class="question-form">
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[0]}">
-  <label for="popQuiz.answers[0]">${popQuiz.answers[0]}</label><br>
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[1]}">
-  <label for="popQuiz.answers[1]">${popQuiz.answers[1]}</label><br>
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[2]}">
-  <label for="popQuiz.answers[2]">${popQuiz.answers[2]}</label><br>
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[3]}">
-  <label for="popQuiz.answers[3]">${popQuiz.answers[3]}</label><br><br>
-  <button type="submit" id="verify-answer">Verifiy</button>
-  <button type="submit" id="next-q">Next Question</button>
-</form>
-</div>`;
+  let question = store.popQuiz[currentQuestion];
+if (store.store.popQuiz.view === 'multiple-choice') {
+  return `<div class='slides'>
+  <form id='quiz-app'>
+      <fieldset>
+          <legend className="question">{questions}</legend>
+          <div>
+              <input 
+                  type='radio'
+                  name='multipoleChoice'
+                  id={answers}
+                  className='answer__option'
+                  check ={selection} === store.popQuiz[i]correctAnswer} />
+              <label htmlFor={answers} className='answer__label'>
+                      {answers[0]} 
+              </label><br>
+              <input 
+                  type='radio'
+                  name='multipoleChoice'
+                  id={answers}
+                  className='answer__option'
+                  check ={selection} === store.popQuiz[i]correctAnswer} />
+              <label htmlFor={answers} className='answer__label'>
+                  {answers[1]} 
+              </label><br>
+              <input 
+                  type='radio'
+                  name='multipoleChoice'
+                  id={answers}
+                  className='answer__option'
+                  check ={selection} === store.popQuiz[i]correctAnswer} />
+              <label htmlFor={answers} className='answer__label'>
+                  {answers[2]} 
+              </label><br>
+              <input 
+                  type='radio'
+                  name='multipoleChoice'
+                  id={answers}
+                  className='answer__option'
+                  check ={selection} === store.popQuiz[i]correctAnswer} />
+              <label htmlFor={answers} className='answer__label'>
+                  {answers[3]} 
+              </label><br>
+          </div>
+          <div className='verifyMessage' id=''></div>
+      </fieldset>
+  </form>
+</div>`
+
 } else if (store.popQuiz.view === 'multiple-answer'){
 return `<div class="slides">
-<div class="question">${popQuiz.question}</div><br><br>
+<div class="question">${store.popQuiz.question}</div><br><br>
 <form class="question-form">
-<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[0]}">
-<label for="popQuiz.answers[0]">${popQuiz.answers[0]}</label><br>
-<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[1]}">
-<label for="popQuiz.answers[1]">${popQuiz.answers[1]}</label><br>
-<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[2]}">
-<label for="popQuiz.answers[2]">${popQuiz.answers[2]}</label><br>
-<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[3]}">
-<label for="popQuiz.answers[3]">${popQuiz.answers[3]}</label><br><br>
+<input type="checkbox" id="multiple-answer" names="answers" value="${store.popQuiz.answers[0]}">
+<label for="store.popQuiz.answers[0]">${store.store.popQuiz.answers[0]}</label><br>
+<input type="checkbox" id="multiple-answer" names="answers" value="${store.popQuiz.answers[1]}">
+<label for="store.popQuiz.answers[1]">${store.popQuiz.answers[1]}</label><br>
+<input type="checkbox" id="multiple-answer" names="answers" value="${store.popQuiz.answers[2]}">
+<label for="store.popQuiz.answers[2]">${store.popQuiz.answers[2]}</label><br>
+<input type="checkbox" id="multiple-answer" names="answers" value="${store.popQuiz.answers[3]}">
+<label for="store.popQuiz.answers[3]">${store.popQuiz.answers[3]}</label><br><br>
 <button type="submit" id="verify-answer">Verifiy</button>
 <button type="submit" id="next-q">Next Question</button>
 </form>
-</div>`;
-} else if (store.popQuiz.view === 'boolean'){
+</div>`; 
+} else if (store.store.popQuiz.view === 'boolean'){
 return `<div class="slides">
-<div class="question">${popQuiz.question}</div><br><br>
+<div class="question">${store.popQuiz.question}</div><br><br>
 <form class="question-form">
-<input type="radio" id="boolean-true" names="answers" value="${popQuiz.answers[0]}">
-<label for="popQuiz.answers[0]">${popQuiz.answers[0]}</label><br>
-<input type="radio" id="boolean-false" names="answers" value="${popQuiz.answers[1]}">
-<label for="popQuiz.answers[1]">${popQuiz.answers[1]}</label><br><br>
+<input type="radio" id="boolean-true" names="answers" value="${store.popQuiz.answers[0]}">
+<label for="store.popQuiz.answers[0]">${store.popQuiz.answers[0]}</label><br>
+<input type="radio" id="boolean-false" names="answers" value="${store.popQuiz.answers[1]}">
+<label for="store.popQuiz.answers[1]">${store.popQuiz.answers[1]}</label><br><br>
 <button type="submit" id="verify-answer">Verifiy</button>
 <button type="submit" id="next-q">Next Question</button>
 </form>
 </div>`;
 } else {
   //conclusion page
-  quizConclusion();
+  quizConclusion() {
+
+  }
 }
 }
 
@@ -110,10 +147,10 @@ function main() {
 function SubmitAnswer(event) {
   event.preventDefault();
   let answer = $('input[name=answers]:checked').val();
-  if(store.popQuiz[store.currentQuestions].correctAnswer == answer){
+  if(store.store.popQuiz[store.currentQuestions].correctAnswer == answer){
     alert(`You are correct!`);
   } else {
-    alert(`oOf! The correct answer is: ${store.popQuiz[currentQuestion].correctAnswer}.`)
+    alert(`oOf! The correct answer is: ${store.store.popQuiz[currentQuestion].correctAnswer}.`)
   }
   store.currentQuestion++;
   renderList();

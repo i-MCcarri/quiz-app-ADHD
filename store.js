@@ -1,4 +1,4 @@
-const popQuiz = [
+export default const popQuiz = [
     {
     question: 'What does the acronym A.D.H.D. stand for?',
     answers: ['Addictive Diabulimia Hyperphagial Diabetes', 'Adult Dialectic Hysteriacal Doubiety', 'Attention Defecit Hyperactivity Disorder', 'Autistic Developmental Hyperexcitable Displacement'],

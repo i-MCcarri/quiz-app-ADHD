@@ -1,22 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
   <title>Quiz App</title>
-  <link rel="shortcut icon" href="#">
-  <link rel="stylesheet" href="index.css">
-  
+  <link rel='shortcut icon' href='#'>
+  <link rel='stylesheet' href='index.css'>
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class='wrapper'>
     <header>
         <div>
             <h1>Pop Quiz</h1>
         </div>
     </header>
     <main>
-        
+        <div class='slides'>
+            <form id='quiz-app'>
+                <fieldset>
+                    <legend className="question">{questions}</legend>
+                    <div>
+                        <input 
+                            type='radio'
+                            name='multipoleChoice'
+                            id={answers}
+                            className='answer__option'
+                            check ={selection} === popQuiz[i]correctAnswer} />
+                        <label htmlFor={answers} className='answer__label'>
+                                {answers[0]} 
+                        </label><br>
+                        <input 
+                            type='radio'
+                            name='multipoleChoice'
+                            id={answers}
+                            className='answer__option'
+                            check ={selection} === popQuiz[i]correctAnswer} />
+                        <label htmlFor={answers} className='answer__label'>
+                            {answers[1]} 
+                        </label><br>
+                        <input 
+                            type='radio'
+                            name='multipoleChoice'
+                            id={answers}
+                            className='answer__option'
+                            check ={selection} === popQuiz[i]correctAnswer} />
+                        <label htmlFor={answers} className='answer__label'>
+                            {answers[2]} 
+                        </label><br>
+                        <input 
+                            type='radio'
+                            name='multipoleChoice'
+                            id={answers}
+                            className='answer__option'
+                            check ={selection} === popQuiz[i]correctAnswer} />
+                        <label htmlFor={answers} className='answer__label'>
+                            {answers[3]} 
+                        </label><br>
+                    </div>
+                    <div className='verifyMessage' id=''></div>
+                </fieldset>
+            </form>
+            <!-- <div class="question">${popQuiz.question}</div><br><br>
+            <form class="question-form">
+            <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[0]}">
+            <label for="popQuiz.answers[0]">${popQuiz.answers[0]}</label><br>
+            <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[1]}">
+            <label for="popQuiz.answers[1]">${popQuiz.answers[1]}</label><br>
+            <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[2]}">
+            <label for="popQuiz.answers[2]">${popQuiz.answers[2]}</label><br>
+            <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[3]}">
+            <label for="popQuiz.answers[3]">${popQuiz.answers[3]}</label><br><br>
+            <button type="submit" id="verify-answer">Verifiy</button>
+            <button type="submit" id="next-q">Next Question</button>
+          </form> --> 
+          </div>
     </main>
     <footer>
         <div>
