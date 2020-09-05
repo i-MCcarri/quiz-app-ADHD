@@ -34,12 +34,16 @@ function startQuiz() {
 function nextQuestion() {
   $('main').on('click', '#nextQ', event => {
     event.preventDefault();
-    STORE.currentQuestion++;
-    if(quizConclude) {
-      quizConclusion();
-    } else {
-      generateStartPage();
-    };
+    console.log(STORE.currentQuestion);
+    $('.answerReveal').html('');
+    $('main').on('submit', 'nextQ', event => {
+      event.preventDefault;
+      if(quizConclude === true) {
+        quizConclusion();
+      } else {
+        renderList();
+      }
+    });
   });
 }
 
@@ -130,7 +134,7 @@ function generateQView(){
             <div class='buttonWrapper'>
               <div class='buttons' id='buttons'>
                 <button type='button' id='checkAnswer'>Check Answer</button>
-                <button type='submit' id='nextQ'>Next Question</button>
+                <button type='submit' id='nextQ' value='submit'>Next Question</button>
               </div>
             </div>
             <div clas='scoreWrapper'>
@@ -159,6 +163,7 @@ function submitAnswer(answer) {
     //correct answer result
     //update value of score
     STORE.score += 10;
+    STORE.currentQuestion ++;
   } else {
     console.log('incorrect');
     //incorrect answer result
