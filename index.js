@@ -38,7 +38,7 @@ function nextQuestion() {
     if(quizConclude) {
       quizConclusion();
     } else {
-      renderList();
+      generateStartPage();
     };
   });
 }
