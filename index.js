@@ -86,7 +86,7 @@ function generateQView(){
       <form class='form' id='quizApp'>
         <fieldset>
             <legend class='question'><h3>${STORE.questions[i].question}</h3></legend>
-            <div>
+            <div class='answer__option'>
                 <input 
                     type='radio'
                     name='answers'
