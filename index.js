@@ -10,7 +10,7 @@ function generateStartPage() {
                 <div class='buttons'>
                     <div>
                       <form id='start'>                    
-                        <button type="submit" class='startQuiz' id='startQuiz' value='submit'>Begin Quiz</button>
+                        <button type='submit' class='startQuiz' id='startQuiz' value='submit'>Begin Quiz</button>
                       </form>
                     </div>
                 </div>
@@ -18,10 +18,28 @@ function generateStartPage() {
           </div>`;
 }
 
+function reveiw() {
+  $('#resource').on('click', function(){
+    open('https://www.amenclinics.com/blog/the-9-biggest-myths-about-add-that-you-need-to-know/');    
+  });
+}
+
 function startQuiz() {
   $('main').on('click', '#startQuiz', event => {
     event.preventDefault();
     renderList();
+  });
+}
+
+function nextQuestion() {
+  $('main').on('click', '#nextQ', event => {
+    event.preventDefault();
+    STORE.currentQuestion++;
+    if(quizConclude) {
+      quizConclusion();
+    } else {
+      renderList();
+    };
   });
 }
 
@@ -112,7 +130,7 @@ function generateQView(){
             <div class='buttonWrapper'>
               <div class='buttons' id='buttons'>
                 <button type='button' id='checkAnswer'>Check Answer</button>
-                <button type='submit' class='nextQ'>Next Question</button>
+                <button type='submit' id='nextQ'>Next Question</button>
               </div>
             </div>
             <div clas='scoreWrapper'>
@@ -124,23 +142,7 @@ function generateQView(){
   </div>`;
 }
 
-// function quizConclusion(){
-//   return `<div class="quizConclusion">
-//             <form id='end'>
-//               <fieldset>
-//                 <legend class='conclusion'>Quiz Completed</legend>
-//                 <div>
-//                   <p>Congratulations!</p>
-//                   <p>Your final score was ${STORE.questions.score} out of 100!</p>
-//                   <p>You answered ${STORE.questions.wrongScore} wrong.</p>
-//                 </div>
-//                 <div>
-//                   <button class="quizConlude" type="submit">Restart Quiz</button>
-//                 </div>
-//               </fieldset>
-//             </form>
-//           </div>`;
-// }
+
 
 function renderList(){
   $('main').html(generateQView());
@@ -166,6 +168,28 @@ function submitAnswer(answer) {
   }
 }
 
+function quizConclude(){
+  return STORE.questions.length === STORE.currentQuestion;
+}
+
+function quizConclusion(){
+  return `<div class="quizConclusion">
+            <form id='end'>
+              <fieldset>
+                <legend class='conclusion'>Quiz Completed</legend>
+                <div>
+                  <p>Congratulations!</p>
+                  <p>Your final score was ${STORE.questions.score} out of 100!</p>
+                  <p>You answered ${STORE.questions.wrongScore} wrong.</p>
+                </div>
+                <div>
+                  <button type='submit' class='resource' id='resource' value='submit'>Review</button>
+                  <button class="quizConlude" type="submit">Restart Quiz</button>
+                </div>
+              </fieldset>
+            </form>
+          </div>`;
+}
 
 // function startAgain() {
 //   $('main').on('click', '.quizConclude', () => {
@@ -190,6 +214,8 @@ function eventHandle() {
   startQuiz();
   handleCheckAnswer();
   handleStoreAnswer();
+  reveiw();
+  nextQuestion();
 };
 
 $(eventHandle);
