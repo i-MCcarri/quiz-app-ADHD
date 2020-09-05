@@ -5,12 +5,12 @@ const displayedQ = q+1;
 function generateStartPage() {
   return `<div class='startPage'>
             <fieldset>
-                <legend class="startQuestion">Pop Quiz!</legend>
+                <legend class="startQuestion"><h3></h3></legend>
                 <div></div>
                 <div class='buttons'>
                     <div>
                       <form id='start'>                    
-                        <button type='submit' class='startQuiz' id='startQuiz' value='submit'>Begin Quiz</button>
+                        <button type='submit' class='startQuiz' id='startQuiz' value='submit'style=''>Begin Quiz</button>
                       </form>
                     </div>
                 </div>
@@ -78,14 +78,14 @@ function handleCheckAnswer() {
 }
 
 function generateQView(){ 
-  
+  STORE.currentQuestion ++;
   return `
   <div class='modalQuestionCount'>Question: ${displayedQ} / 10</div>
   <div class='box'></div>
     <div class='slides'>
       <form class='form' id='quizApp'>
         <fieldset>
-            <legend class="question">${STORE.questions[i].question}</legend>
+            <legend class='question'><h3>${STORE.questions[i].question}</h3></legend>
             <div>
                 <input 
                     type='radio'
@@ -163,7 +163,6 @@ function submitAnswer(answer) {
     //correct answer result
     //update value of score
     STORE.score += 10;
-    STORE.currentQuestion ++;
   } else {
     console.log('incorrect');
     //incorrect answer result
