@@ -1,3 +1,7 @@
+/********** TEMPLATE GENERATION FUNCTIONS **********/
+
+// These functions return HTML templates
+
 function generateStartPage() {
   return `<div class='startPage'>
             <fieldset>
@@ -12,65 +16,6 @@ function generateStartPage() {
                 </div>
             </fieldset>
           </div>`;
-}
-
-function startQuiz() {
-  $('main').on('click', '#startQuiz', event => {
-    event.preventDefault();
-    renderList();
-  });
-}
-
-function nextQuestion() {
-  $('main').on('click', '#nextQ', event => {
-    if ($("input[type=radio]:checked").length === 0) {
-      return
-    }
-    event.preventDefault();
-    $('.answerReveal').html('');
-    let selected = $('input:checked');
-    let answer = selected.val();
-    submitAnswer(answer);
-    if(quizConclude()) {
-      finalPage();
-    } else {
-      increment();
-      renderList();
-    }
-  });
-}
-
-function handleStoreAnswer(){
-  $('main').on('click', '.form', event => {
-    event.preventDefault;
-  });
-}
-
-function increment() {
-  STORE.currentQuestion++; 
-}
-
-function handleCheckAnswer() {
-  $('main').on('click', '#checkAnswer', event => {
-    if ($("input[type=radio]:checked").length === 0) {
-      return
-    }
-    let i = STORE.currentQuestion;
-    $('.answerReveal').html(`
-      <div class='modal'>
-        <div class='modalWrapper'>
-          <legend class='modalHeader'><h3 class='modalAnswerIntro'></h3></legend>
-          <fieldset>
-            <p class='modalAnswerResult'></p>
-          </fieldset>
-        </div>
-      </div>`
-    );
-    $('.modalAnswerIntro').html('The Correct Answer Is:');
-    $('.modalAnswerResult').html(`${STORE.questions[i].correctAnswer}`);
-    $('.modalScore').html(`Score: ${STORE.score} / 100`);
-      
-  });
 }
 
 function generateQView(){
@@ -150,6 +95,52 @@ function generateQView(){
   </div>`;
 }
 
+function handleCheckAnswer() {
+  $('main').on('click', '#checkAnswer', event => {
+    if ($("input[type=radio]:checked").length === 0) {
+      return
+    }
+    let i = STORE.currentQuestion;
+    $('.answerReveal').html(`
+      <div class='modal'>
+        <div class='modalWrapper'>
+          <legend class='modalHeader'><h3 class='modalAnswerIntro'></h3></legend>
+          <fieldset>
+            <p class='modalAnswerResult'></p>
+          </fieldset>
+        </div>
+      </div>`
+    );
+    $('.modalAnswerIntro').html('The Correct Answer Is:');
+    $('.modalAnswerResult').html(`${STORE.questions[i].correctAnswer}`);
+    $('.modalScore').html(`Score: ${STORE.score} / 100`);
+      
+  });
+}
+
+function quizConclusion() {
+  return `<div class="quizConclusion">
+            <form id='end'>
+              <fieldset>
+                <legend class='conclusion'>Quiz Completed</legend>
+                <div>
+                  <p>Congratulations!</p>
+                  <p>Your final score was ${STORE.score} out of 100!</p>
+                  <p>You answered ${STORE.wrongScore} wrong.</p>
+                </div>
+                <div>
+                  <button class="quizConlude" type="submit">Restart Quiz</button>
+                </div>
+              </fieldset>
+            </form>
+          </div>`;
+}
+
+
+/********** RENDER FUNCTION(S) **********/
+
+// This function conditionally replaces the contents of the <main> tag based on the state of the store
+
 function renderList(){
   $('main').html(generateQView());
 }
@@ -158,8 +149,46 @@ function main() {
   $('main').html(generateStartPage());
 }
 
+function increment() {
+  STORE.currentQuestion++; 
+}
+
 function finalPage() {
   $('main').html(quizConclusion());
+}
+
+/********** EVENT HANDLER FUNCTIONS **********/
+
+function startQuiz() {
+  $('main').on('click', '#startQuiz', event => {
+    event.preventDefault();
+    renderList();
+  });
+}
+
+function nextQuestion() {
+  $('main').on('click', '#nextQ', event => {
+    if ($("input[type=radio]:checked").length === 0) {
+      return
+    }
+    event.preventDefault();
+    $('.answerReveal').html('');
+    let selected = $('input:checked');
+    let answer = selected.val();
+    submitAnswer(answer);
+    if(quizConclude()) {
+      finalPage();
+    } else {
+      increment();
+      renderList();
+    }
+  });
+}
+
+function handleStoreAnswer(){
+  $('main').on('click', '.form', event => {
+    event.preventDefault;
+  });
 }
 
 function submitAnswer(answer) {
@@ -182,24 +211,6 @@ function quizConclude(){
   if (STORE.currentQuestion === 9) {
     return true;
   };
-}
-
-function quizConclusion() {
-  return `<div class="quizConclusion">
-            <form id='end'>
-              <fieldset>
-                <legend class='conclusion'>Quiz Completed</legend>
-                <div>
-                  <p>Congratulations!</p>
-                  <p>Your final score was ${STORE.score} out of 100!</p>
-                  <p>You answered ${STORE.wrongScore} wrong.</p>
-                </div>
-                <div>
-                  <button class="quizConlude" type="submit">Restart Quiz</button>
-                </div>
-              </fieldset>
-            </form>
-          </div>`;
 }
 
 function startAgain() {
