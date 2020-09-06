@@ -14,7 +14,7 @@ const STORE = {
       correctAnswer: 'All of the Above',
     },
     {
-      question: 'Up to what percentage of children diagnosed with A.D.H.D. will have disabling symptomsinto adulthood?',
+      question: 'Up to what percentage of children diagnosed with A.D.H.D. will have disabling symptoms into adulthood?',
       answers: ['30%', '65%', '0%','None of the Above'],
       correctAnswer: '65%',
     },
