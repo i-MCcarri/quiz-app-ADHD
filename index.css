@@ -1,7 +1,16 @@
+*:focus {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: 0;
+}
+
 * {
   margin: 0;
   padding: 0;
+  border: none;
 }
+
 
 html, body {
   height: 100%;
@@ -53,7 +62,7 @@ header, footer {
   text-align: center;
 }
 
-.answer__option {
+.answer__options {
   text-align: left;
 }
 

@@ -6,7 +6,7 @@ function generateStartPage() {
                 <div class='buttons'>
                     <div>
                       <form id='start'>                    
-                        <button type='submit' class='startQuiz' id='startQuiz' value='submit'style=''>Begin Quiz</button>
+                        <button type='button' class='startQuiz' id='startQuiz'>Begin Quiz</button>
                       </form>
                     </div>
                 </div>
@@ -23,6 +23,9 @@ function startQuiz() {
 
 function nextQuestion() {
   $('main').on('click', '#nextQ', event => {
+    if ($("input[type=radio]:checked").length === 0) {
+      return
+    }
     event.preventDefault();
     $('.answerReveal').html('');
     let selected = $('input:checked');
@@ -31,7 +34,7 @@ function nextQuestion() {
     if(quizConclude()) {
       finalPage();
     } else {
-      incrament();
+      increment();
       renderList();
     }
   });
@@ -43,12 +46,15 @@ function handleStoreAnswer(){
   });
 }
 
-function incrament() {
+function increment() {
   STORE.currentQuestion++; 
 }
 
 function handleCheckAnswer() {
   $('main').on('click', '#checkAnswer', event => {
+    if ($("input[type=radio]:checked").length === 0) {
+      return
+    }
     let i = STORE.currentQuestion;
     $('.answerReveal').html(`
       <div class='modal'>
@@ -71,70 +77,77 @@ function generateQView(){
   let i = STORE.currentQuestion;
   let displayedQ = STORE.currentQuestion + 1;
   return `
-  <div class='modalQuestionCount'>Question: ${displayedQ} / 10</div>
-  <div class='box'></div>
+  <div class='questionWrapper'>
+    <div>
+      <p class='modalQuestionCount'>Question: ${displayedQ} / 10</p>
+    </div>
+    <div class='box'>
+    </div>
     <div class='slides'>
       <form class='form' id='quizApp'>
         <fieldset>
+          <div class='questionLine'>
             <legend class='question'><h3>${STORE.questions[i].question}</h3></legend>
-            <div class='answer__option'>
-                <input 
-                    type='radio'
-                    name='answers'
-                    id='answers'
-                    class='answer__option'
-                    value='${STORE.questions[i].answers[0]}' 
-                    />
-                <label htmlFor='answers' class='answer__label'>
-                        ${STORE.questions[i].answers[0]} 
-                </label><br>
-                <input 
-                    type='radio'
-                    name='answers'
-                    id='answers'
-                    class='answer__option'
-                    value='${STORE.questions[i].answers[1]}'
-                    />
-                <label htmlFor='answers' class='answer__label'>
-                ${STORE.questions[i].answers[1]} 
-                </label><br>
-                <input 
-                    type='radio'
-                    name='answers'
-                    id='answers'
-                    class='answer__option'
-                    value='${STORE.questions[i].answers[2]}'
-                     />
-                <label htmlFor='answers' class='answer__label'>
-                ${STORE.questions[i].answers[2]} 
-                </label><br>
-                <input 
-                    type='radio'
-                    name='answers'
-                    id='answers'
-                    class='answer__option'
-                    value='${STORE.questions[i].answers[3]}'
-                    required />
-                <label htmlFor='answers' class='answer__label'>
-                ${STORE.questions[i].answers[3]} 
-                </label><br>
-              </div>
+          </div>
+          <div class='answer__options'>
+            <input 
+              type='radio'
+              name='answers'
+              id='answers'
+              class='answer__option'
+              value='${STORE.questions[i].answers[0]}' 
+              required />
+            <label htmlFor='answers' class='answer__label'>
+                    ${STORE.questions[i].answers[0]} 
+            </label><br>
+            <input 
+              type='radio'
+              name='answers'
+              id='answers'
+              class='answer__option'
+              value='${STORE.questions[i].answers[1]}'
+              required />
+            <label htmlFor='answers' class='answer__label'>
+            ${STORE.questions[i].answers[1]} 
+            </label><br>
+            <input 
+              type='radio'
+              name='answers'
+              id='answers'
+              class='answer__option'
+              value='${STORE.questions[i].answers[2]}'
+              required   />
+            <label htmlFor='answers' class='answer__label'>
+            ${STORE.questions[i].answers[2]} 
+            </label><br>
+            <input 
+              type='radio'
+              name='answers'
+              id='answers'
+              class='answer__option'
+              value='${STORE.questions[i].answers[3]}'
+              required />
+            <label htmlFor='answers' class='answer__label'>
+            ${STORE.questions[i].answers[3]} 
+            </label><br/>
+          </div>
+          <hr/>
+          <div class='buttonWrapper'>
+            <div class='buttons' id='buttons'>
+              <button type='submit' id='nextQ'>Next</button>
+              <button type='button' id='checkAnswer'>Check</button>
             </div>
-            <hr>
-            <div class='buttonWrapper'>
-              <div class='buttons' id='buttons'>
-                <button type='button' id='checkAnswer'>Check</button>
-                <button type='button' id='nextQ'>Next</button>
-              </div>
-            </div>
-            <div clas='scoreWrapper'>
-              <p class='modalScore'>Score: ${STORE.score} / 100</p>
-            </div>
-            <div class='answerReveal'></div>
+          </div>
+          <div clas='scoreWrapper'>
+            <p class='modalScore'>Score: ${STORE.score} / 100</p>
+          </div>
+          <div>
+            <p class='answerReveal'></p>
           </div>
         </fieldset>
       </form>
-    </div>`;
+    </div>
+  </div>`;
 }
 
 function renderList(){
@@ -158,6 +171,7 @@ function submitAnswer(answer) {
     STORE.score += 10;
   } else {
     console.log('incorrect');
+    console.log(answer);
     //update value of wrongScore
     STORE.wrongScore += 1;
     $('.score').html(`Score: ${STORE.score}/100`);
