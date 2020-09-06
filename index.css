@@ -1,4 +1,4 @@
-/* * {
+* {
   margin: 0;
   padding: 0;
 }
@@ -112,4 +112,4 @@ button, #nextQ, #checkAnswer {
 button:hover {
   cursor: pointer;
   opacity: 1;
-} */
+}

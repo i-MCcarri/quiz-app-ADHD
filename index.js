@@ -1,5 +1,3 @@
- // disable buttons until an answer is selected. 
-
 function generateStartPage() {
   return `<div class='startPage'>
             <fieldset>
@@ -14,13 +12,6 @@ function generateStartPage() {
                 </div>
             </fieldset>
           </div>`;
-}
-
-function reveiw() {
-  $('#resource').on('click', function(e){
-    e.preventDefault;
-    window.open('https://www.amenclinics.com/blog/the-9-biggest-myths-about-add-that-you-need-to-know/', '_blank');    
-  });
 }
 
 function startQuiz() {
@@ -58,7 +49,6 @@ function incrament() {
 
 function handleCheckAnswer() {
   $('main').on('click', '#checkAnswer', event => {
-    event.preventDefault();
     let i = STORE.currentQuestion;
     $('.answerReveal').html(`
       <div class='modal'>
@@ -114,7 +104,7 @@ function generateQView(){
                     id='answers'
                     class='answer__option'
                     value='${STORE.questions[i].answers[2]}'
-                    />
+                     />
                 <label htmlFor='answers' class='answer__label'>
                 ${STORE.questions[i].answers[2]} 
                 </label><br>
@@ -143,8 +133,8 @@ function generateQView(){
             <div class='answerReveal'></div>
           </div>
         </fieldset>
-    </form>
-  </div>`;
+      </form>
+    </div>`;
 }
 
 function renderList(){
@@ -191,7 +181,6 @@ function quizConclusion() {
                   <p>You answered ${STORE.wrongScore} wrong.</p>
                 </div>
                 <div>
-                  <button type='button' class='resource' id='resource'>Review</button>
                   <button class="quizConlude" type="submit">Restart Quiz</button>
                 </div>
               </fieldset>
@@ -220,7 +209,6 @@ function eventHandle() {
   startQuiz();
   handleCheckAnswer();
   handleStoreAnswer();
-  reveiw();
   nextQuestion();
 }
 
