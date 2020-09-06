@@ -9,7 +9,7 @@ const STORE = {
       correctAnswer: 'Attention Defecit Hyperactivity Disorder',
     },
     {
-      question: 'Medication is only one of the many methods, of treating the symptoms of A.D.H.D.. What other holistic methods, when paired with medication, have shown great success in treating A.D.H.D.?',
+      question: 'Medication is only one of the many methods , of treating the symptoms of A.D.H.D.. What other holistic methods, when paired with medication, have shown great success in treating A.D.H.D.?',
       answers: ['Routine Exercise', 'Support', 'Organic Nutritional Maintenance', 'All of the Above'],
       correctAnswer: 'All of the Above',
     },
@@ -50,8 +50,8 @@ const STORE = {
     },
     {
       question: 'ADHD is the most common learning and __________ problem in children, and ADULTS!',
-      answers: ['behavior', 'mental', 'physical', 'None of the Above'],
-      correctAnswer: 'behavior',
+      answers: ['behavioral', 'mental', 'physical', 'None of the Above'],
+      correctAnswer: 'behavioral',
     }
   ]
 };

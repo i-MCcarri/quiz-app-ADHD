@@ -18,6 +18,10 @@ h3 {
   padding-bottom: 33px;
 }
 
+p, .modalQuestionCount {
+  text-align: center;
+}
+
 #main{
   overflow: auto;
   padding-bottom: 3px;
@@ -50,8 +54,8 @@ header, footer {
 legend, fieldset, .form {
   text-align: center;
   border: none;
-  margin-left: 10%;
-  max-width: 80%;
+  margin-left: 10px;
+  max-width: 100%;
   background-color: rgb(243, 238, 246);
   opacity: 1;
 }

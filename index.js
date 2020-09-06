@@ -1,6 +1,6 @@
-const i = STORE.currentQuestion;
-const q = STORE.currentQuestion;
-const displayedQ = q+1;
+// fix score increimenting 
+// check answer
+// disable buttons until an answer is selected. 
 
 function generateStartPage() {
   return `<div class='startPage'>
@@ -34,29 +34,36 @@ function startQuiz() {
 function nextQuestion() {
   $('main').on('click', '#nextQ', event => {
     event.preventDefault();
-    console.log(STORE.currentQuestion);
     $('.answerReveal').html('');
-    $('main').on('submit', 'nextQ', event => {
-      event.preventDefault;
-      if(quizConclude === true) {
-        quizConclusion();
-      } else {
-        renderList();
-      }
-    });
+    if(quizConclude()) {
+      finalPage();
+    } else {
+      incrament();
+      renderList();
+    }
   });
 }
+
+
 
 function handleStoreAnswer(){
   $('main').on('change', '.form', event => {
     event.preventDefault;
-    const selected = $('input:checked');
-    const answer = selected.val();
+    let selected = $('input:checked');
+    let answer = selected.val();
     submitAnswer(answer);
   });
 }
 
+function incrament() {
+  STORE.currentQuestion++; 
+  let i = STORE.currentQuestion;
+}
+
 function handleCheckAnswer() {
+  let displayedQ = STORE.currentQuestion;
+  let i = STORE.currentQuestion;
+  
   $('main').on('click', '#checkAnswer', event => {
     event.preventDefault();
     $('.answerReveal').html(`
@@ -77,8 +84,9 @@ function handleCheckAnswer() {
   });
 }
 
-function generateQView(){ 
-  STORE.currentQuestion ++;
+function generateQView(){
+  let i = STORE.currentQuestion;
+  let displayedQ = STORE.currentQuestion + 1;
   return `
   <div class='modalQuestionCount'>Question: ${displayedQ} / 10</div>
   <div class='box'></div>
@@ -134,7 +142,7 @@ function generateQView(){
             <div class='buttonWrapper'>
               <div class='buttons' id='buttons'>
                 <button type='button' id='checkAnswer'>Check Answer</button>
-                <button type='submit' id='nextQ' value='submit'>Next Question</button>
+                <button type='button' id='nextQ'>Next Question</button>
               </div>
             </div>
             <div clas='scoreWrapper'>
@@ -156,9 +164,15 @@ function main() {
   $('main').html(generateStartPage());
 }
 
+function finalPage() {
+  $('main').html(quizConclusion());
+}
+
 function submitAnswer(answer) {
+  let i = STORE.currentQuestion;
   console.log(answer);
-  if(STORE.questions[i].correctAnswer == answer){
+  console.log(i);
+  if(STORE.questions[i].correctAnswer === answer){
     console.log('correct');
     //correct answer result
     //update value of score
@@ -173,18 +187,20 @@ function submitAnswer(answer) {
 }
 
 function quizConclude(){
-  return STORE.questions.length === STORE.currentQuestion;
+  if (STORE.currentQuestion === 9) {
+    return true;
+  };
 }
 
-function quizConclusion(){
+function quizConclusion() {
   return `<div class="quizConclusion">
             <form id='end'>
               <fieldset>
                 <legend class='conclusion'>Quiz Completed</legend>
                 <div>
                   <p>Congratulations!</p>
-                  <p>Your final score was ${STORE.questions.score} out of 100!</p>
-                  <p>You answered ${STORE.questions.wrongScore} wrong.</p>
+                  <p>Your final score was ${STORE.score} out of 100!</p>
+                  <p>You answered ${STORE.wrongScore} wrong.</p>
                 </div>
                 <div>
                   <button type='submit' class='resource' id='resource' value='submit'>Review</button>
@@ -195,21 +211,22 @@ function quizConclusion(){
           </div>`;
 }
 
-// function startAgain() {
-//   $('main').on('click', '.quizConclude', () => {
-//     if (STORE.questions.currentQuestion === STORE.questions.questions.length) {
-//       //reset currentQuestion
-//       STORE.questions.currentQuestion = 1;
-//       //reset score
-//       STORE.questions.score = 0;
-//       //reset wrongScore
-//       STORE.questions.wrongScore = 0;
-//       let quizConclude = generateStartPage();
-//       $('main').html(quizConclude);
-//     }
-//     startQuiz();
-//   });
-// }
+function startAgain() {
+  $('main').on('click', '.quizConclude', () => {
+    if (STORE.questions.currentQuestion === STORE.questions.questions.length) {
+      //reset currentQuestion
+      STORE.questions.currentQuestion = 1;
+      //reset score
+      STORE.questions.score = 0;
+      //reset wrongScore
+      STORE.questions.wrongScore = 0;
+    
+      let quizConclude = generateStartPage();
+      $('main').html(quizConclude);
+    }
+    startQuiz();
+  });
+}
 
 
 
