@@ -1,6 +1,4 @@
-// fix score increimenting 
-// check answer
-// disable buttons until an answer is selected. 
+ // disable buttons until an answer is selected. 
 
 function generateStartPage() {
   return `<div class='startPage'>
@@ -19,8 +17,9 @@ function generateStartPage() {
 }
 
 function reveiw() {
-  $('#resource').on('click', function(){
-    open('https://www.amenclinics.com/blog/the-9-biggest-myths-about-add-that-you-need-to-know/');    
+  $('#resource').on('click', function(e){
+    e.preventDefault;
+    window.open('https://www.amenclinics.com/blog/the-9-biggest-myths-about-add-that-you-need-to-know/', '_blank');    
   });
 }
 
@@ -35,6 +34,9 @@ function nextQuestion() {
   $('main').on('click', '#nextQ', event => {
     event.preventDefault();
     $('.answerReveal').html('');
+    let selected = $('input:checked');
+    let answer = selected.val();
+    submitAnswer(answer);
     if(quizConclude()) {
       finalPage();
     } else {
@@ -44,40 +46,31 @@ function nextQuestion() {
   });
 }
 
-
-
 function handleStoreAnswer(){
-  $('main').on('change', '.form', event => {
+  $('main').on('click', '.form', event => {
     event.preventDefault;
-    let selected = $('input:checked');
-    let answer = selected.val();
-    submitAnswer(answer);
   });
 }
 
 function incrament() {
   STORE.currentQuestion++; 
-  let i = STORE.currentQuestion;
 }
 
 function handleCheckAnswer() {
-  let displayedQ = STORE.currentQuestion;
-  let i = STORE.currentQuestion;
-  
   $('main').on('click', '#checkAnswer', event => {
     event.preventDefault();
+    let i = STORE.currentQuestion;
     $('.answerReveal').html(`
       <div class='modal'>
         <div class='modalWrapper'>
-          <legend class='modalHeader'><h5 class='modalAnswerIntro'></h5></legend>
+          <legend class='modalHeader'><h3 class='modalAnswerIntro'></h3></legend>
           <fieldset>
             <p class='modalAnswerResult'></p>
           </fieldset>
         </div>
       </div>`
     );
-    $('.modalQuestionCount').html(`Question: ${displayedQ} / 10`);
-    $('.modalAnswerIntro').html('the correct answer is:');
+    $('.modalAnswerIntro').html('The Correct Answer Is:');
     $('.modalAnswerResult').html(`${STORE.questions[i].correctAnswer}`);
     $('.modalScore').html(`Score: ${STORE.score} / 100`);
       
@@ -137,24 +130,22 @@ function generateQView(){
                 </label><br>
               </div>
             </div>
-            <div class='answerReveal'></div>
             <hr>
             <div class='buttonWrapper'>
               <div class='buttons' id='buttons'>
-                <button type='button' id='checkAnswer'>Check Answer</button>
-                <button type='button' id='nextQ'>Next Question</button>
+                <button type='button' id='checkAnswer'>Check</button>
+                <button type='button' id='nextQ'>Next</button>
               </div>
             </div>
             <div clas='scoreWrapper'>
               <p class='modalScore'>Score: ${STORE.score} / 100</p>
             </div>
+            <div class='answerReveal'></div>
           </div>
         </fieldset>
     </form>
   </div>`;
 }
-
-
 
 function renderList(){
   $('main').html(generateQView());
@@ -170,16 +161,13 @@ function finalPage() {
 
 function submitAnswer(answer) {
   let i = STORE.currentQuestion;
-  console.log(answer);
-  console.log(i);
+  let correct = null;
   if(STORE.questions[i].correctAnswer === answer){
     console.log('correct');
-    //correct answer result
     //update value of score
     STORE.score += 10;
   } else {
     console.log('incorrect');
-    //incorrect answer result
     //update value of wrongScore
     STORE.wrongScore += 1;
     $('.score').html(`Score: ${STORE.score}/100`);
@@ -203,7 +191,7 @@ function quizConclusion() {
                   <p>You answered ${STORE.wrongScore} wrong.</p>
                 </div>
                 <div>
-                  <button type='submit' class='resource' id='resource' value='submit'>Review</button>
+                  <button type='button' class='resource' id='resource'>Review</button>
                   <button class="quizConlude" type="submit">Restart Quiz</button>
                 </div>
               </fieldset>
@@ -220,15 +208,12 @@ function startAgain() {
       STORE.questions.score = 0;
       //reset wrongScore
       STORE.questions.wrongScore = 0;
-    
       let quizConclude = generateStartPage();
       $('main').html(quizConclude);
     }
     startQuiz();
   });
 }
-
-
 
 function eventHandle() { 
   main();
@@ -237,6 +222,6 @@ function eventHandle() {
   handleStoreAnswer();
   reveiw();
   nextQuestion();
-};
+}
 
 $(eventHandle);
