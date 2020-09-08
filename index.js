@@ -84,8 +84,8 @@ function generateQView(){
           <hr/>
           <div class='buttonWrapper'>
             <div class='buttons' id='buttons'>
-              <button type='submit' id='nextQ' tabindex='0'>Next</button>
-              <button type='button' id='checkAnswer' tabindex='5'>Check</button>
+              <button type='button' id='checkAnswer' tabindex='5' disabled='true'>Check</button>
+              <button type='submit' id='nextQ' tabindex='0' disabled='true'>Next</button>
             </div>
           </div>
           <div clas='scoreWrapper'>
@@ -147,12 +147,13 @@ function quizConclusion() {
 
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
 
-function renderList(){
-  $('main').html(generateQView());
-}
-
 function main() {
   $('main').html(generateStartPage());
+}
+
+function renderList(){
+  $('main').html(generateQView());
+  enableCheckAnsButton();
 }
 
 function increment() {
@@ -168,8 +169,22 @@ function finalPage() {
 function startQuiz() {
   $('main').on('click', '.startQuiz', event => {
     event.preventDefault();
-    console.log('starting quiz on keydown or click.');
     renderList();
+  });
+}
+
+function enableCheckAnsButton() {
+  $('.answer__option').change(function(e) {
+    e.preventDefault;
+    $('#checkAnswer').prop('disabled', false);
+    enableNextQButton();
+  });
+}
+
+function enableNextQButton() {
+  $('#checkAnswer').on('click', function(e) {
+    e.preventDefault;
+    $('#nextQ').prop('disabled', false);
   });
 }
 
@@ -244,6 +259,7 @@ function eventHandle() {
   handleCheckAnswer();
   handleStoreAnswer();
   nextQuestion();
+  enableNextQButton();
 }
 
 $(eventHandle);
