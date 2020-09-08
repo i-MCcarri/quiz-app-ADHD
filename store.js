@@ -9,7 +9,7 @@ const STORE = {
       correctAnswer: 'Attention Defecit Hyperactivity Disorder',
     },
     {
-      question: 'Medication is only one of the many methods , of treating the symptoms of A.D.H.D.. What other holistic methods, when paired with medication, have shown great success in treating A.D.H.D.?',
+      question: 'What holistic methods, when paired with medication, have shown great success in treating A.D.H.D.?',
       answers: ['Routine Exercise', 'Support', 'Organic Nutritional Maintenance', 'All of the Above'],
       correctAnswer: 'All of the Above',
     },

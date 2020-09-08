@@ -3,19 +3,20 @@
 // These functions return HTML templates
 
 function generateStartPage() {
-  return `<div class='startPage'>
-            <fieldset>
-                <legend class="startQuestion"><h3></h3></legend>
+  return `<div id='startPage'>
+            <form class='form' id='quizApp'>
+              <fieldset>
+                <legend class='startQuestion'><h3></h3></legend>
                 <div></div>
-                <div class='buttons'>
-                    <div>
-                      <form id='start'>                    
-                        <button type='button' class='startQuiz' id='startQuiz'>Begin Quiz</button>
-                      </form>
+                <div class='beginButton'>
+                    <div id='start'>                    
+                      <button type='submit' class='startQuiz' id='startQuiz' tabindex='1'>Begin Quiz</button>
                     </div>
                 </div>
-            </fieldset>
-          </div>`;
+                </fieldset>
+            </form>
+          </div>
+          `;
 }
 
 function generateQView(){
@@ -40,9 +41,10 @@ function generateQView(){
               name='answers'
               id='answers'
               class='answer__option'
-              value='${STORE.questions[i].answers[0]}' 
+              value='${STORE.questions[i].answers[0]}'
+              tabindex='1' 
               required />
-            <label htmlFor='answers' class='answer__label'>
+            <label for='answers' class='answer__label'>
                     ${STORE.questions[i].answers[0]} 
             </label><br>
             <input 
@@ -51,8 +53,9 @@ function generateQView(){
               id='answers'
               class='answer__option'
               value='${STORE.questions[i].answers[1]}'
+              tabindex='2'
               required />
-            <label htmlFor='answers' class='answer__label'>
+            <label for='answers' class='answer__label'>
             ${STORE.questions[i].answers[1]} 
             </label><br>
             <input 
@@ -61,8 +64,9 @@ function generateQView(){
               id='answers'
               class='answer__option'
               value='${STORE.questions[i].answers[2]}'
+              tabindex='3'
               required   />
-            <label htmlFor='answers' class='answer__label'>
+            <label for='answers' class='answer__label'>
             ${STORE.questions[i].answers[2]} 
             </label><br>
             <input 
@@ -71,20 +75,21 @@ function generateQView(){
               id='answers'
               class='answer__option'
               value='${STORE.questions[i].answers[3]}'
+              tabindex='4'
               required />
-            <label htmlFor='answers' class='answer__label'>
+            <label for='answers' class='answer__label'>
             ${STORE.questions[i].answers[3]} 
             </label><br/>
           </div>
           <hr/>
           <div class='buttonWrapper'>
             <div class='buttons' id='buttons'>
-              <button type='submit' id='nextQ'>Next</button>
-              <button type='button' id='checkAnswer'>Check</button>
+              <button type='submit' id='nextQ' tabindex='0'>Next</button>
+              <button type='button' id='checkAnswer' tabindex='5'>Check</button>
             </div>
           </div>
           <div clas='scoreWrapper'>
-            <p class='modalScore'>Score: ${STORE.score} / 100</p>
+            <p class='modalScore'><h4>Score: ${STORE.score} / 100</h4></p>
           </div>
           <div>
             <p class='answerReveal'></p>
@@ -92,12 +97,13 @@ function generateQView(){
         </fieldset>
       </form>
     </div>
-  </div>`;
+  </div>
+  `;
 }
 
 function handleCheckAnswer() {
   $('main').on('click', '#checkAnswer', event => {
-    if ($("input[type=radio]:checked").length === 0) {
+    if ($('input[type=radio]:checked').length === 0) {
       return
     }
     let i = STORE.currentQuestion;
@@ -105,31 +111,31 @@ function handleCheckAnswer() {
       <div class='modal'>
         <div class='modalWrapper'>
           <legend class='modalHeader'><h3 class='modalAnswerIntro'></h3></legend>
-          <fieldset>
+          <div>
             <p class='modalAnswerResult'></p>
-          </fieldset>
+          </div>
         </div>
       </div>`
     );
     $('.modalAnswerIntro').html('The Correct Answer Is:');
     $('.modalAnswerResult').html(`${STORE.questions[i].correctAnswer}`);
-    $('.modalScore').html(`Score: ${STORE.score} / 100`);
+    
       
   });
 }
 
 function quizConclusion() {
-  return `<div class="quizConclusion">
-            <form id='end'>
-              <fieldset>
-                <legend class='conclusion'>Quiz Completed</legend>
+  return `<div class='slides'>
+            <form class='form' id='quizApp'>
+              <fieldset class='conclusionWrapper'>
+                <legend class='conclusion'><h3>Quiz Completed</h3></legend>
                 <div>
-                  <p>Congratulations!</p>
+                  <p>Congratulations!</p><br/>
                   <p>Your final score was ${STORE.score} out of 100!</p>
                   <p>You answered ${STORE.wrongScore} wrong.</p>
                 </div>
-                <div>
-                  <button class="quizConlude" type="submit">Restart Quiz</button>
+                <div class='buttonWrapper'>
+                  <button class='quizConlude' type='submit' tabindex='1'>Restart Quiz</button>
                 </div>
               </fieldset>
             </form>
@@ -160,15 +166,18 @@ function finalPage() {
 /********** EVENT HANDLER FUNCTIONS **********/
 
 function startQuiz() {
-  $('main').on('click', '#startQuiz', event => {
+  $('main').on('click', '.startQuiz', event => {
     event.preventDefault();
+    console.log('starting quiz on keydown or click.');
     renderList();
   });
 }
 
 function nextQuestion() {
-  $('main').on('click', '#nextQ', event => {
-    if ($("input[type=radio]:checked").length === 0) {
+  console.log('123');
+  $('main').on('submit', '#quizApp', event => {
+    console.log('345');
+    if ($('input[type=radio]:checked').length === 0) {
       return
     }
     event.preventDefault();
@@ -186,7 +195,7 @@ function nextQuestion() {
 }
 
 function handleStoreAnswer(){
-  $('main').on('click', '.form', event => {
+  $('main').on('submit', '.form', event => {
     event.preventDefault;
   });
 }
@@ -214,7 +223,7 @@ function quizConclude(){
 }
 
 function startAgain() {
-  $('main').on('click', '.quizConclude', () => {
+  $('main').on('submit', '.quizConclude', () => {
     if (STORE.questions.currentQuestion === STORE.questions.questions.length) {
       //reset currentQuestion
       STORE.questions.currentQuestion = 1;

@@ -50,12 +50,12 @@ header, footer {
   background-color: rgba(150, 50, 204, 0.5);
 }
 
-.startPage {
-  padding-top: 10px;
-  margin-left: 10%;
-  max-width: 80%;
+#startPage {
+  margin-top: -19px;
+  max-width: 95%;
   background-color: rgb(243, 238, 246);
   opacity: 1;
+  overflow: auto;
 }
 
 .startQuiz {
@@ -76,18 +76,13 @@ legend, fieldset, .form {
 }
 
 .slides {
+  margin-top: 25px;
+  max-width: 95%;
+  margin-left: 2.5%;
   overflow: auto;
-  padding-bottom: 6px;
+  padding-bottom: 7px;
   background-color: rgb(243, 238, 246);
   opacity: 1;
-}
-
-#footer {
-  position: relative;
-  height: 88px;
-  max-width: 90%;
-  margin-top: -88px;
-  clear: both;
 }
 
 body {
@@ -118,7 +113,15 @@ button, #nextQ, #checkAnswer {
   text-decoration: none;
 }
 
-button:hover {
+button:hover, #nextQ:hover, #checkAnswer:hover {
   cursor: pointer;
   opacity: 1;
+}
+
+.buttonWrapper {
+  margin-top: 75px;
+}
+
+.conclusionWrapper {
+  margin-top: 100px;
 }
