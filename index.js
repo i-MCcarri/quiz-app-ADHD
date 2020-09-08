@@ -259,7 +259,6 @@ function eventHandle() {
   handleCheckAnswer();
   handleStoreAnswer();
   nextQuestion();
-  enableNextQButton();
 }
 
 $(eventHandle);
