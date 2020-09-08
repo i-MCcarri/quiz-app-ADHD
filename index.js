@@ -10,7 +10,7 @@ function generateStartPage() {
                 <div></div>
                 <div class='beginButton'>
                     <div id='start'>                    
-                      <button type='submit' class='startQuiz' id='startQuiz' tabindex='1'>Begin Quiz</button>
+                      <button type='submit' class='startQuiz' id='startQuiz' aria-pressed='false' tabindex='1'>Begin Quiz</button>
                     </div>
                 </div>
                 </fieldset>
@@ -42,6 +42,7 @@ function generateQView(){
               id='answers'
               class='answer__option'
               value='${STORE.questions[i].answers[0]}'
+              aria-pressed='false'
               tabindex='1' 
               required />
             <label for='answers' class='answer__label'>
@@ -53,6 +54,7 @@ function generateQView(){
               id='answers'
               class='answer__option'
               value='${STORE.questions[i].answers[1]}'
+              aria-pressed='false'
               tabindex='2'
               required />
             <label for='answers' class='answer__label'>
@@ -64,6 +66,7 @@ function generateQView(){
               id='answers'
               class='answer__option'
               value='${STORE.questions[i].answers[2]}'
+              aria-pressed='false'
               tabindex='3'
               required   />
             <label for='answers' class='answer__label'>
@@ -75,6 +78,7 @@ function generateQView(){
               id='answers'
               class='answer__option'
               value='${STORE.questions[i].answers[3]}'
+              aria-pressed='false'
               tabindex='4'
               required />
             <label for='answers' class='answer__label'>
@@ -84,8 +88,8 @@ function generateQView(){
           <hr/>
           <div class='buttonWrapper'>
             <div class='buttons' id='buttons'>
-              <button type='button' id='checkAnswer' tabindex='5' disabled='true'>Check</button>
-              <button type='submit' id='nextQ' tabindex='0' disabled='true'>Next</button>
+              <button type='button' id='checkAnswer' aria-pressed='false' tabindex='5' disabled='true'>Check</button>
+              <button type='submit' id='nextQ' aria-pressed='false' tabindex='0' disabled='true'>Next</button>
             </div>
           </div>
           <div clas='scoreWrapper'>
@@ -135,7 +139,7 @@ function quizConclusion() {
                   <p>You answered ${STORE.wrongScore} wrong.</p>
                 </div>
                 <div class='buttonWrapper'>
-                  <button class='quizConlude' type='submit' tabindex='1'>Restart Quiz</button>
+                  <button class='quizConlude' type='submit' aria-pressed='false' tabindex='1'>Restart Quiz</button>
                 </div>
               </fieldset>
             </form>
