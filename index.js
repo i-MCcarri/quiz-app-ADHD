@@ -179,7 +179,7 @@ function startQuiz() {
 
 function enableCheckAnsButton() {
   $('.answer__option').change(function(e) {
-    e.preventDefault;
+    e.preventDefault();
     $('#checkAnswer').prop('disabled', false);
     enableNextQButton();
   });
@@ -187,15 +187,29 @@ function enableCheckAnsButton() {
 
 function enableNextQButton() {
   $('#checkAnswer').on('click', function(e) {
-    e.preventDefault;
+    e.preventDefault();
     $('#nextQ').prop('disabled', false);
   });
 }
 
+function listenForKeyIn() {
+  $(document).keyup(function (e) {
+    e.preventDefault();
+    var key = e.which;
+    if(key == 13)  // the enter key code
+    {
+      console.log('enterkey pressed');
+      // $('#checkAnswer').click();
+      if ($('#checkAnswer').prop('disabled') === false) {
+        $('#checkAnswer').click();
+      } 
+      return false;  
+    }
+  }); 
+}  
+
 function nextQuestion() {
-  console.log('123');
   $('main').on('submit', '#quizApp', event => {
-    console.log('345');
     if ($('input[type=radio]:checked').length === 0) {
       return
     }
@@ -215,7 +229,7 @@ function nextQuestion() {
 
 function handleStoreAnswer(){
   $('main').on('submit', '.form', event => {
-    event.preventDefault;
+    event.preventDefault();
   });
 }
 
@@ -263,6 +277,7 @@ function eventHandle() {
   handleCheckAnswer();
   handleStoreAnswer();
   nextQuestion();
+  listenForKeyIn();
 }
 
 $(eventHandle);
