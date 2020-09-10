@@ -3,6 +3,7 @@
   padding: 0;
   border: none;
   outline: 1;
+  outline-color: rgba(150, 50, 204, 0.5);
 }
 
 * {
