@@ -94,6 +94,8 @@ function generateQView(){
           </div>
           <div clas='scoreWrapper'>
             <p class='modalScore'><h4>Score: ${STORE.score} / 100</h4></p>
+            <hr></hr>
+            <p><h4 class='modalValidate'></h4></p>
           </div>
           <div>
             <p class='answerReveal'></p>
@@ -110,7 +112,11 @@ function handleCheckAnswer() {
     if ($('input[type=radio]:checked').length === 0) {
       return
     }
+    // let input = 
     let i = STORE.currentQuestion;
+    let selected = $('input:checked');
+    let answer = selected.val();
+    submitAnswer(answer);
     $('.answerReveal').html(`
       <div class='modal'>
         <div class='modalWrapper'>
@@ -123,8 +129,6 @@ function handleCheckAnswer() {
     );
     $('.modalAnswerIntro').html('The Correct Answer Is:');
     $('.modalAnswerResult').html(`${STORE.questions[i].correctAnswer}`);
-    
-      
   });
 }
 
@@ -179,7 +183,7 @@ function startQuiz() {
 
 function enableCheckAnsButton() {
   $('.answer__option').change(function(e) {
-    e.preventDefault();
+    e.preventDefault(); 
     $('#checkAnswer').prop('disabled', false);
     enableNextQButton();
   });
@@ -199,7 +203,6 @@ function listenForKeyIn() {
     if(key == 13)  // the enter key code
     {
       console.log('enterkey pressed');
-      // $('#checkAnswer').click();
       if ($('#checkAnswer').prop('disabled') === false) {
         $('#checkAnswer').click();
       } 
@@ -215,9 +218,6 @@ function nextQuestion() {
     }
     event.preventDefault();
     $('.answerReveal').html('');
-    let selected = $('input:checked');
-    let answer = selected.val();
-    submitAnswer(answer);
     if(quizConclude()) {
       finalPage();
     } else {
@@ -227,25 +227,22 @@ function nextQuestion() {
   });
 }
 
-function handleStoreAnswer(){
-  $('main').on('submit', '.form', event => {
-    event.preventDefault();
-  });
-}
-
 function submitAnswer(answer) {
   let i = STORE.currentQuestion;
   let correct = null;
   if(STORE.questions[i].correctAnswer === answer){
     console.log('correct');
+    $('.modalValidate').html('your answer was Correct!');
     //update value of score
     STORE.score += 10;
+    return true;
   } else {
     console.log('incorrect');
-    console.log(answer);
     //update value of wrongScore
+    $('.modalValidate').html('your answer was Incorrect!');
     STORE.wrongScore += 1;
     $('.score').html(`Score: ${STORE.score}/100`);
+    return false;
   }
 }
 
@@ -275,7 +272,6 @@ function eventHandle() {
   main();
   startQuiz();
   handleCheckAnswer();
-  handleStoreAnswer();
   nextQuestion();
   listenForKeyIn();
 }

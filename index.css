@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   border: none;
-  outline: 0;
+  outline: 1;
 }
 
 * {
@@ -119,7 +119,7 @@ button:hover, #nextQ:hover, #checkAnswer:hover {
 }
 
 .buttonWrapper {
-  margin-top: 75px;
+  padding-top: 10px;
 }
 
 .conclusionWrapper {
